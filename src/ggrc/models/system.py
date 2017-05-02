@@ -8,6 +8,7 @@ from ggrc.access_control.roleable import Roleable
 from ggrc.fulltext.mixin import Indexed
 from ggrc.models.deferred import deferred
 from ggrc.models.mixins import BusinessObject, Timeboxed, CustomAttributable
+from ggrc.models.object_document import PublicDocumentable
 from ggrc.models.object_owner import Ownable
 from ggrc.models.object_person import Personable
 from ggrc.models.relationship import Relatable
@@ -16,7 +17,7 @@ from ggrc.models import track_object_state
 
 
 class SystemOrProcess(track_object_state.HasObjectState, Timeboxed,
-                      BusinessObject, db.Model):
+                      BusinessObject, PublicDocumentable, db.Model):
   # Override model_inflector
   _table_plural = 'systems_or_processes'
   __tablename__ = 'systems'
@@ -55,6 +56,8 @@ class SystemOrProcess(track_object_state.HasObjectState, Timeboxed,
   ]
   _sanitize_html = ['version']
   _aliases = {
+      "document_url": None,
+      "document_evidence": None,
       "network_zone": {
           "display_name": "Network Zone",
       },
@@ -88,8 +91,6 @@ class System(CustomAttributable, Personable, Roleable,
   }
   _table_plural = 'systems'
 
-  _aliases = {"url": "System URL"}
-
   @validates('is_biz_process')
   def validates_is_biz_process(self, key, value):
     return False
@@ -101,8 +102,6 @@ class Process(CustomAttributable, Personable, Roleable,
       'polymorphic_identity': True
   }
   _table_plural = 'processes'
-
-  _aliases = {"url": "Process URL"}
 
   @validates('is_biz_process')
   def validates_is_biz_process(self, key, value):

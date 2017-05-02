@@ -23,6 +23,8 @@ class Documentable(object):
                                       ['title', 'link']),
       MultipleSubpropertyFullTextAttr('document_url', 'document_url',
                                       ['link']),
+      MultipleSubpropertyFullTextAttr('reference_url', 'reference_url',
+                                      ['link']),
   ]
 
   @classmethod
@@ -80,6 +82,10 @@ class Documentable(object):
   def document_evidence(cls):  # pylint: disable=no-self-argument
     return cls.documents(Document.ATTACHMENT)
 
+  @declared_attr
+  def reference_url(cls):  # pylint: disable=no-self-argument
+    return cls.documents(Document.REFERENCE_URL)
+
   @classmethod
   def eager_query(cls):
     """Eager query classmethod."""
@@ -88,6 +94,7 @@ class Documentable(object):
     return cls.eager_inclusions(query, Documentable._include_links).options(
         orm.subqueryload('document_url').load_only(*document_fields),
         orm.subqueryload('document_evidence').load_only(*document_fields),
+        orm.subqueryload('reference_url').load_only(*document_fields),
     )
 
   @staticmethod
@@ -103,6 +110,7 @@ class Documentable(object):
     out_json = super(Documentable, self).log_json()
     out_json["document_url"] = self._log_docs(self.document_url)
     out_json["document_evidence"] = self._log_docs(self.document_evidence)
+    out_json["reference_url"] = self._log_docs(self.reference_url)
     return out_json
 
   @classmethod
@@ -112,6 +120,7 @@ class Documentable(object):
         orm.subqueryload("document_evidence").undefer_group(
             "Document_complete"
         ),
+        orm.subqueryload("reference_url").undefer_group("Document_complete"),
     )
 
 
@@ -133,6 +142,11 @@ PublicDocumentable = type(
                     "titles.\nExample:\n\nhttp://my.gdrive.link/file "
                     "Title of the evidence link"
                 ),
+            },
+            "reference_url": {
+                "display_name": "Reference URL",
+                "type": reflection.AttributeInfo.Type.SPECIAL_MAPPING,
+                "description": "New line separated list of Reference URLs.",
             },
         }
     })

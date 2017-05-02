@@ -1,12 +1,14 @@
 # Copyright (C) 2017 Google Inc.
 # Licensed under http://www.apache.org/licenses/LICENSE-2.0 <see LICENSE file>
 
+from sqlalchemy.orm import validates
+
 from ggrc import db
 from ggrc.access_control.roleable import Roleable
 from ggrc.fulltext.mixin import Indexed
-from sqlalchemy.orm import validates
 from ggrc.models.deferred import deferred
 from ggrc.models.mixins import BusinessObject, Timeboxed, CustomAttributable
+from ggrc.models.object_document import PublicDocumentable
 from ggrc.models.object_owner import Ownable
 from ggrc.models.object_person import Personable
 from ggrc.models.option import Option
@@ -17,7 +19,7 @@ from ggrc.models.track_object_state import HasObjectState
 
 class Product(Roleable, HasObjectState, CustomAttributable, Personable,
               Relatable, Timeboxed, Ownable, BusinessObject, Indexed,
-              db.Model):
+              PublicDocumentable, db.Model):
   __tablename__ = 'products'
 
   kind_id = deferred(db.Column(db.Integer), 'Product')
@@ -40,7 +42,8 @@ class Product(Roleable, HasObjectState, CustomAttributable, Personable,
   ]
   _sanitize_html = ['version', ]
   _aliases = {
-      "url": "Product URL",
+      "document_url": None,
+      "document_evidence": None,
       "kind": {
           "display_name": "Kind/Type",
           "filter_by": "_filter_by_kind",

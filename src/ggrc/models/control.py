@@ -175,7 +175,6 @@ class Control(WithLastAssessmentDate, HasObjectState, Roleable, Relatable,
       'version',
       'principal_assessor',
       'secondary_assessor',
-      # 'document_evidence',
   ]
 
   _fulltext_attrs = [
@@ -253,7 +252,6 @@ class Control(WithLastAssessmentDate, HasObjectState, Roleable, Relatable,
   _include_links = []
 
   _aliases = {
-      "url": "Control URL",
       "kind": {
           "display_name": "Kind/Nature",
           "filter_by": "_filter_by_kind",

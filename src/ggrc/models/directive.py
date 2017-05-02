@@ -1,22 +1,25 @@
 # Copyright (C) 2017 Google Inc.
 # Licensed under http://www.apache.org/licenses/LICENSE-2.0 <see LICENSE file>
 
+from sqlalchemy import orm
+from sqlalchemy.orm import validates
+
 from ggrc import db
 from ggrc.access_control.roleable import Roleable
 from ggrc.models.deferred import deferred
 from ggrc.models.mixins import BusinessObject, Timeboxed, CustomAttributable
 from ggrc.fulltext.mixin import Indexed
+from .object_document import PublicDocumentable
 from .object_person import Personable
 from .object_owner import Ownable
 from .relationship import Relatable
 from .utils import validate_option
 
-from sqlalchemy.orm import validates
-from sqlalchemy import orm
 from .track_object_state import HasObjectState
 
 
-class Directive(HasObjectState, Timeboxed, BusinessObject, db.Model):
+class Directive(HasObjectState, Timeboxed, BusinessObject,
+                PublicDocumentable, db.Model):
   __tablename__ = 'directives'
 
   version = deferred(db.Column(db.String), 'Directive')
@@ -97,7 +100,11 @@ class Directive(HasObjectState, Timeboxed, BusinessObject, db.Model):
 
   _include_links = []
 
-  _aliases = {'kind': "Kind/Type", }
+  _aliases = {
+      'kind': "Kind/Type",
+      "document_url": None,
+      "document_evidence": None,
+  }
 
   @validates('kind')
   def validate_kind(self, key, value):
@@ -142,8 +149,6 @@ class Policy(Roleable, CustomAttributable, Relatable,
       "Product Policy", "Contract-Related Policy", "Company Controls Policy"
   ])
 
-  _aliases = {"url": "Policy URL"}
-
   @validates('meta_kind')
   def validates_meta_kind(self, key, value):
     return 'Policy'
@@ -160,7 +165,6 @@ class Regulation(Roleable, CustomAttributable, Relatable,
   VALID_KINDS = ("Regulation",)
 
   _aliases = {
-      "url": "Regulation URL",
       "kind": None,
   }
 
@@ -180,7 +184,6 @@ class Standard(Roleable, CustomAttributable, Relatable,
   VALID_KINDS = ("Standard",)
 
   _aliases = {
-      "url": "Standard URL",
       "kind": None,
   }
 
@@ -200,7 +203,6 @@ class Contract(Roleable, CustomAttributable, Relatable,
   VALID_KINDS = ("Contract",)
 
   _aliases = {
-      "url": "Contract URL",
       "kind": None,
   }
 

@@ -5,15 +5,19 @@ from ggrc import db
 from ggrc.access_control.roleable import Roleable
 from ggrc.fulltext.mixin import Indexed
 from .mixins import BusinessObject, Timeboxed, CustomAttributable
+from .object_document import PublicDocumentable
 from .object_owner import Ownable
 from .object_person import Personable
 from .relationship import Relatable
 from .track_object_state import HasObjectState
 
 
-class Facility(Roleable, HasObjectState,
+class Facility(Roleable, HasObjectState, PublicDocumentable,
                CustomAttributable, Personable,
                Relatable, Timeboxed, Ownable,
                BusinessObject, Indexed, db.Model):
   __tablename__ = 'facilities'
-  _aliases = {"url": "Facility URL"}
+  _aliases = {
+      "document_url": None,
+      "document_evidence": None,
+  }

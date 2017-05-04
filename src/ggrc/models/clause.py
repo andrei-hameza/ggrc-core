@@ -20,8 +20,8 @@ from ggrc.fulltext.mixin import Indexed
 
 
 class Clause(Roleable, HasObjectState, Hierarchical, CustomAttributable,
-             Personable, Ownable, Timeboxed, Relatable, BusinessObject,
-             Indexed, PublicDocumentable, db.Model):
+             Personable, Ownable, Timeboxed, Relatable, PublicDocumentable,
+             BusinessObject, Indexed, db.Model):
 
   __tablename__ = 'clauses'
   _table_plural = 'clauses'

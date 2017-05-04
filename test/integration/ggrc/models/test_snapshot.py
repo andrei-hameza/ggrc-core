@@ -101,6 +101,7 @@ class TestSnapshot(TestCase):
       # while api returns only basic data in stubs
       "document_url",
       "document_evidence",
+      "reference_url",
   }
 
   def setUp(self):

@@ -13,8 +13,8 @@ from .track_object_state import HasObjectState
 
 
 class Project(Roleable, HasObjectState, CustomAttributable, Personable,
-              Relatable, Timeboxed, Ownable, BusinessObject, Indexed,
-              PublicDocumentable, db.Model):
+              Relatable, Timeboxed, Ownable, PublicDocumentable,
+              BusinessObject, Indexed, db.Model):
   __tablename__ = 'projects'
   _aliases = {
       "document_url": None,

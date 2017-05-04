@@ -337,6 +337,7 @@ class TestGetObjectColumnDefinitions(TestCase):
         "Delete",
         "Url",
         "Evidence",
+        "Reference URL"
     }
     expected_fields = {
         "mandatory": {
@@ -451,6 +452,7 @@ class TestGetObjectColumnDefinitions(TestCase):
         "Stop Date",
         "State",
         "Review State",
+        "Url",
         "Evidence",
         "Delete",
     }
@@ -820,7 +822,6 @@ class TestGetObjectColumnDefinitions(TestCase):
         "Review State",
         "Stop Date",
         "Title",
-        "Url",
     }
     expected_fields = {
         "mandatory": {

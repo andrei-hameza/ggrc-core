@@ -18,8 +18,8 @@ from ggrc.models.track_object_state import HasObjectState
 
 
 class Product(Roleable, HasObjectState, CustomAttributable, Personable,
-              Relatable, Timeboxed, Ownable, BusinessObject, Indexed,
-              PublicDocumentable, db.Model):
+              Relatable, Timeboxed, Ownable, PublicDocumentable,
+              BusinessObject, Indexed, db.Model):
   __tablename__ = 'products'
 
   kind_id = deferred(db.Column(db.Integer), 'Product')

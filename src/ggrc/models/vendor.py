@@ -13,8 +13,8 @@ from .track_object_state import HasObjectState
 
 
 class Vendor(Roleable, HasObjectState, CustomAttributable, Personable,
-             Relatable, Timeboxed, Ownable, BusinessObject, Indexed,
-             PublicDocumentable, db.Model):
+             Relatable, Timeboxed, Ownable, PublicDocumentable,
+             BusinessObject, Indexed, db.Model):
   __tablename__ = 'vendors'
 
   _aliases = {

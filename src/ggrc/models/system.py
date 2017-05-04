@@ -17,7 +17,7 @@ from ggrc.models import track_object_state
 
 
 class SystemOrProcess(track_object_state.HasObjectState, Timeboxed,
-                      BusinessObject, PublicDocumentable, db.Model):
+                      PublicDocumentable, BusinessObject, db.Model):
   # Override model_inflector
   _table_plural = 'systems_or_processes'
   __tablename__ = 'systems'

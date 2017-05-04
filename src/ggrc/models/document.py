@@ -132,7 +132,7 @@ class Document(Ownable, Relatable, Base, Indexed, db.Model):
 
   @hybrid_property
   def slug(self):
-    if self.document_type == self.URL:
+    if self.document_type in (self.URL, self.REFERENCE_URL):
       return self.link
     return u"{} {}".format(self.link, self.title)
 

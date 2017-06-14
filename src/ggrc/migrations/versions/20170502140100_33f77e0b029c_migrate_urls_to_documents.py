@@ -14,7 +14,7 @@ from ggrc.migrations.utils import url_util
 
 # revision identifiers, used by Alembic.
 revision = '33f77e0b029c'
-down_revision = '3220cbaaaf1a'
+down_revision = '56108297b924'
 
 HYPERLINKED_OBJECTS = {
     'AccessGroup': 'access_groups',

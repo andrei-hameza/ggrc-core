@@ -4,7 +4,7 @@
 """Module containing Document model."""
 
 from sqlalchemy import orm
-from sqlalchemy import func
+from sqlalchemy import func, case
 from sqlalchemy.ext.hybrid import hybrid_property
 
 from ggrc import db
@@ -139,7 +139,9 @@ class Document(Ownable, Relatable, Base, Indexed, db.Model):
   # pylint: disable=no-self-argument
   @slug.expression
   def slug(cls):
-    return func.concat(cls.link, ' ', cls.title)
+    return case([(cls.document_type == cls.ATTACHMENT,
+                 func.concat(cls.link, ' ', cls.title))],
+                else_=cls.link)
 
   def log_json(self):
     tmp = super(Document, self).log_json()

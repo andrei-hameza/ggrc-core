@@ -336,8 +336,7 @@ class TestGetObjectColumnDefinitions(TestCase):
         "Archived",
         "Delete",
         "Url",
-        "Evidence",
-        "Reference URL"
+        "Evidence"
     }
     expected_fields = {
         "mandatory": {

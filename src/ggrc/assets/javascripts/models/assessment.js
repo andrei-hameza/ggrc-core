@@ -274,6 +274,7 @@
     },
     after_save: function () {
       this.dispatch('refreshInstance');
+      this.dispatch('refreshRelatedDocuments');
       if (this.audit && this.audit.selfLink) {
         this.audit.refresh();
       }

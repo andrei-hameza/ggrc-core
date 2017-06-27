@@ -468,6 +468,7 @@
 
         if (ev.which === 13 &&
           !$(document.activeElement).hasClass('wysihtml5') &&
+          !$(document.activeElement).hasClass('create-form__input') &&
           !$(document.activeElement).parents('.pagination').length) {
           ev.preventDefault();
           if (ev.originalEvent) {

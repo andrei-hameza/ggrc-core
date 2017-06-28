@@ -226,58 +226,7 @@
 
       <div class="span6 hide-wrap hidable">
         <div class="row-fluid inner-hide">
-          <div data-id="reference_url_hidden" class="span12 hidable">
-            <related-documents instance={instance} document-type="REFERENCE_URL" autorefresh="false">
-              <related-reference-urls class="related-reference-urls"
-                {(urls)}="documents"
-                {is-disabled}="isLoading"
-                (createReferenceUrl)="markDocumentForAddition(%event.payload)"
-                (removeReferenceUrl)="markDocumentForDeletion(%event.payload)">
-                <label>
-                  Reference URL
-                  <i class="fa fa-question-circle" rel="tooltip" title="Web links to other references."></i>
-                  <a data-id="hide_reference_url_lk" href="javascript://" class="field-hide" tabindex="-1">hide</a>
-                  <spinner {toggle}="isDisabled"></spinner>
-                </label>
-                <div class="related-reference-urls__list">
-                  <object-list {(items)}="urls" {empty-message}="''">
-                    <div class="related-reference-urls__list-item">
-                      <document-object-list-item {instance}="{.}">
-                      </document-object-list-item>
-                      <button class="related-reference-urls__remove"
-                        type="button"
-                        {{#if isDisabled}}disabled{{/if}}
-                        ($click)="removeReferenceUrl(%context)">
-                      </button>
-                    </div>
-                  </object-list>
-                </div>
-                <form class="related-reference-urls__create create-form {{#if isFormVisible}}create-form--visible{{/if}}">
-                  <fieldset class="create-form__layout"
-                    {{#if isDisabled}}disabled{{/if}}>
-                    <input {($value)}="value"
-                      class="create-form__input"
-                      type="text"
-                      placeholder="Add URL"
-                      spellcheck="false"
-                      autocomplete="false">
-                    <div class="create-form__controls">
-                      <button type="submit" class="create-form__confirm" ($click)="submitCreateReferenceUrlForm(value)">
-                        <i class="fa fa-check"></i>
-                      </button>
-                      <button type="button" class="create-form__cancel" ($click)="toggleFormVisibility(false)">
-                        <i class="fa fa-times"></i>
-                      </button>
-                    </div>
-                  </fieldset>
-                </form>
-                <button class="related-reference-urls__toggle btn btn-small btn-gray {{#if isFormVisible}}related-reference-urls__toggle--hidden{{/if}}"
-                  ($click)="toggleFormVisibility(true)">
-                  Add
-                </button>
-              </related-reference-urls>
-            </related-documents>
-          </div>
+          {{> '/static/mustache/base_objects/modal_content_urls.mustache'}}
         </div>
       </div>
     </div>
@@ -290,7 +239,7 @@
           <i class="fa fa-question-circle" rel="tooltip" title="The GGRC application will automatically provide codes for new objects.  If you would like to override this feature you may manually enter a code of your choosing.  You should have a specific reason for doing this."></i>
           <a data-id="hide_code_lk" href="javascript://" class="field-hide" tabindex="-1">hide</a>
         </label>
-        <input data-id="code_txtbx" tabindex="8" class="input-block-level" name="slug" placeholder="ASSESSMENT-XXX" type="text" value="{{slug}}">
+        <input data-id="code_txtbx" tabindex="6" class="input-block-level" name="slug" placeholder="ASSESSMENT-XXX" type="text" value="{{slug}}">
       </div>
       <effective-dates instance="instance"/>
     </div>
@@ -302,7 +251,7 @@
           <i class="fa fa-question-circle" rel="tooltip" title="Is this control design effective?"></i>
           <a data-id="hide_state_lk" href="javascript://" class="field-hide" tabindex="-1">hide</a>
         </label>
-          <dropdown tabindex="9"
+          <dropdown tabindex="7"
                     options-list="model.conclusions"
                     no-value="true"
                     no-value-label="---"
@@ -317,7 +266,7 @@
           <i class="fa fa-question-circle" rel="tooltip" title="Is this control operationally effective?"></i>
           <a data-id="hide_state_lk" href="javascript://" class="field-hide" tabindex="-1">hide</a>
         </label>
-          <dropdown tabindex="10"
+          <dropdown tabindex="8"
                     options-list="model.conclusions"
                     no-value="true"
                     no-value-label="---"

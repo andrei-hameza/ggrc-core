@@ -52,5 +52,9 @@
       }
       this.validatePresenceOf('title');
     }
-  }, {});
+  }, {
+    after_save: function () {
+      this.dispatch('refreshRelatedDocuments');
+    }
+  });
 })(window.can);

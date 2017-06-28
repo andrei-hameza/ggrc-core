@@ -103,6 +103,9 @@
           delete that.directive;
         }
       });
+    },
+    after_save: function () {
+      this.dispatch('refreshRelatedDocuments');
     }
   });
 })(this, can.$);
